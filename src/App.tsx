@@ -1,31 +1,31 @@
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import Breadcrumb from "./components/breadcrumb/Breadcrumb";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const itemsResponse = await fetch("/api/Items");
+  // const fetchData = async () => {
+  //   try {
+  //     const itemsResponse = await fetch("/api/Items");
 
-      if (!itemsResponse.ok) {
-        throw new Error("Failed to fetch data");
-      }
+  //     if (!itemsResponse.ok) {
+  //       throw new Error("Failed to fetch data");
+  //     }
 
-      const itemsData = await itemsResponse.json();
+  //     const itemsData = await itemsResponse.json();
 
-      setItems(itemsData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  //     setItems(itemsData);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
   return (
     <div className="bg-gray-100 min-h-screen">

@@ -16,6 +16,7 @@ import {
   InvocationContext,
 } from "@azure/functions";
 import { app } from "@azure/functions";
+import { IItem } from "../models/Item";
 
 const databaseId = "SWAStore";
 const containerId = "Items";
@@ -84,7 +85,7 @@ export const itemsFunctions = async (
 
     //create new item in the database
     try {
-      const newItem = await req.json();
+      const newItem = (await req.json()) as IItem;
       const { resource: createdItem } = await createItem(
         databaseId,
         containerId,
@@ -107,7 +108,7 @@ export const itemsFunctions = async (
 
     try {
       const itemId = req.params.id;
-      const updatedItem = await req.json();
+      const updatedItem = (await req.json()) as IItem;
       const { resource: replacedItem } = await updateItem(
         databaseId,
         containerId,

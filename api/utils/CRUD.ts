@@ -101,7 +101,7 @@ export const createItem = async (
   databaseId: string,
   containerId: string,
   client: CosmosClient,
-  itemBody
+  itemBody: IItem
 ): Promise<ItemResponse<ItemDefinition>> => {
   console.log(`Creating Item:\n${itemBody.id}`);
 
@@ -164,7 +164,7 @@ export const updateItem = async (
   databaseId: string,
   containerId: string,
   client: CosmosClient,
-  itemBody,
+  itemBody: IItem,
   reqId: string
 ): Promise<ItemResponse<IItem>> => {
   console.log(`Updating item: ${itemBody.id}`);
@@ -205,7 +205,7 @@ export const cleanup = async (databaseId: string, client: CosmosClient) => {
  * Exit the app with a prompt
  * @param {string} message - The message to display
  */
-export const exit = (message) => {
+export const exit = (message: string) => {
   console.log(message);
   console.log("Press any key to exit");
 
