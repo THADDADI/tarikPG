@@ -1,0 +1,12 @@
+{
+  "globals": {
+    "$": true,
+    "require": true,
+    "module": true,
+    "exit": true,
+    "process": true
+  },
+  "rules": {
+    "@typescript-eslint/no-var-requires": 0
+  }
+}
