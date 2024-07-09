@@ -20,5 +20,8 @@
     "azure-functions-core-tools": "^4.x",
     "eslint": "^8.57.0"
   },
-  "main": "dist/*/index.js"
+  "main": "dist/*/index.js",
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }
