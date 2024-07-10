@@ -22,10 +22,10 @@ jobs:
       - name: Install and build site
         run: |
           npm i
-          npm run build
           cd api
           npm i
           cd ../
+          npm run build
           # copy staticwebapp.config.json to build folder
           cp staticwebapp.config.json build/staticwebapp.config.json
       - name: Build And Deploy
