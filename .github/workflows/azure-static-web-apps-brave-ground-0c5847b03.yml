@@ -25,11 +25,15 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build the project
-        run: npm run build
+      - name: Install and build site
+        run: |
+          npm i
+          cd api
+          npm i
+          cd ../
+          npm run build
+          # copy staticwebapp.config.json to build folder
+          cp staticwebapp.config.json dist/staticwebapp.config.json
 
       - name: Deploy to Azure Static Web Apps
         id: builddeploy
