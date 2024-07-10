@@ -3,6 +3,6 @@
     "apiRuntime": "node:18"
   },
   "navigationFallback": {
-    "rewrite": "dist/index.html"
+    "rewrite": "index.html"
   }
 }
