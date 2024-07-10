@@ -19,8 +19,8 @@ import {
 import { app } from "@azure/functions";
 import { IItem } from "../models/Item";
 
-const databaseId = process.env.DB_ID || "";
-const containerId = process.env.CONTAINER_ID || "";
+const databaseId = process.env.COSMOS_DB_ID || "";
+const containerId = process.env.COSMOS_CONTAINER_ID || "";
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const client = new CosmosClient({
