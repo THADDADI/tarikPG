@@ -125,7 +125,7 @@ export const getById = async (
   // query to return all children in a family
   // Including the partition key value of lastName in the WHERE filter results in a more efficient query
   const querySpec = {
-    query: "SELECT * FROM " + containerId + " r WHERE r.id = @id and r.name",
+    query: "SELECT * FROM " + containerId + " r WHERE r.id = @id",
     parameters: [
       {
         name: "@id",
