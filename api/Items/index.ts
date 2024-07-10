@@ -8,6 +8,7 @@ import {
   readDatabase,
   getById,
   readContainer,
+  createContainer,
 } from "../utils/CRUD";
 import {
   HttpRequest,
@@ -18,17 +19,18 @@ import {
 import { app } from "@azure/functions";
 import { IItem } from "../models/Item";
 
-const databaseId = "SWAStore";
-const containerId = "Items";
+const databaseId = process.env.DB_ID;
+const containerId = process.env.CONTAINER_ID;
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const client = new CosmosClient({
-  endpoint: process.env["COSMOSDB_ENDPOINT"]!,
-  key: process.env["COSMOSDB_KEY"]!,
+  endpoint: process.env.COSMOSDB_ENDPOINT!,
+  key: process.env.COSMOSDB_KEY!,
   userAgentSuffix: "CosmosDBJavascriptQuickstart",
 });
 
 createDatabase(databaseId, client)
+  .then(() => createContainer(databaseId, containerId, "/id", client))
   .then(() => readDatabase(databaseId, client))
   .then(() => readContainer(databaseId, containerId, client))
   .then(() => {
