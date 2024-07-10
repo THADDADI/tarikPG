@@ -27,7 +27,7 @@ jobs:
           cd ../
           npm run build
           # copy staticwebapp.config.json to build folder
-          cp staticwebapp.config.json build/staticwebapp.config.json
+          cp staticwebapp.config.json dist/staticwebapp.config.json
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
