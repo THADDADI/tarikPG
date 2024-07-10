@@ -23,6 +23,9 @@ jobs:
         run: |
           npm i
           npm run build
+          cd api
+          npm i
+          cd ../
           # copy staticwebapp.config.json to build folder
           cp staticwebapp.config.json build/staticwebapp.config.json
       - name: Build And Deploy
