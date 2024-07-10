@@ -21,7 +21,6 @@ jobs:
           lfs: false
       - name: Install and build site
         run: |
-          cd blog-website
           npm i
           npm run build
           # copy staticwebapp.config.json to build folder
