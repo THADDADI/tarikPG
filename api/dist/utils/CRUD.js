@@ -88,7 +88,7 @@ const getById = (databaseId, containerId, client, itemId) => __awaiter(void 0, v
     // query to return all children in a family
     // Including the partition key value of lastName in the WHERE filter results in a more efficient query
     const querySpec = {
-        query: "SELECT * FROM " + containerId + " r WHERE r.id = @id",
+        query: "SELECT * FROM " + containerId + " r WHERE r.id = @id and r.name",
         parameters: [
             {
                 name: "@id",

@@ -13,15 +13,16 @@ exports.itemsFunctions = void 0;
 const cosmos_1 = require("@azure/cosmos");
 const CRUD_1 = require("../utils/CRUD");
 const functions_1 = require("@azure/functions");
-const databaseId = "SWAStore";
-const containerId = "Items";
+const databaseId = process.env.DB_ID;
+const containerId = process.env.CONTAINER_ID;
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const client = new cosmos_1.CosmosClient({
-    endpoint: process.env["COSMOSDB_ENDPOINT"],
-    key: process.env["COSMOSDB_KEY"],
+    endpoint: process.env.COSMOSDB_ENDPOINT,
+    key: process.env.COSMOSDB_KEY,
     userAgentSuffix: "CosmosDBJavascriptQuickstart",
 });
 (0, CRUD_1.createDatabase)(databaseId, client)
+    .then(() => (0, CRUD_1.createContainer)(databaseId, containerId, "/id", client))
     .then(() => (0, CRUD_1.readDatabase)(databaseId, client))
     .then(() => (0, CRUD_1.readContainer)(databaseId, containerId, client))
     .then(() => {
@@ -72,7 +73,7 @@ const itemsFunctions = (req, context) => __awaiter(void 0, void 0, void 0, funct
         context.log("Items HTTP trigger function processed a Create request.");
         //create new item in the database
         try {
-            const newItem = yield req.json();
+            const newItem = (yield req.json());
             const { resource: createdItem } = yield (0, CRUD_1.createItem)(databaseId, containerId, client, newItem);
             return {
                 status: 201,
@@ -91,7 +92,7 @@ const itemsFunctions = (req, context) => __awaiter(void 0, void 0, void 0, funct
         context.log("Items HTTP trigger function processed an Update request.");
         try {
             const itemId = req.params.id;
-            const updatedItem = yield req.json();
+            const updatedItem = (yield req.json());
             const { resource: replacedItem } = yield (0, CRUD_1.updateItem)(databaseId, containerId, client, updatedItem, itemId);
             return {
                 status: 200,
