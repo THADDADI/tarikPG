@@ -4,6 +4,7 @@ import {
   HttpResponseInit,
   InvocationContext,
 } from "@azure/functions";
+import { app } from "@azure/functions";
 
 export const salesFunctions = async (
   req: HttpRequest,
@@ -20,3 +21,9 @@ export const salesFunctions = async (
     jsonBody: responseMessage,
   };
 };
+
+app.http("Sales", {
+  methods: ["GET", "PUT", "DELETE", "POST"],
+  handler: salesFunctions,
+  route: "Sales/{id?}",
+});
