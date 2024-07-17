@@ -10,6 +10,20 @@ export default defineConfig({
       // add this to cache all the imports
       workbox: {
         globPatterns: ["**/*"],
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => {
+              return url.pathname.includes("api");
+            },
+            handler: "CacheFirst" as const,
+            options: {
+              cacheName: "api-cache",
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
       },
       // add this to cache all the
       // static assets in the public folder
