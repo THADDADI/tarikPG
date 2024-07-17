@@ -9,18 +9,21 @@ export default defineConfig({
     VitePWA({
       // add this to cache all the imports
       workbox: {
-        globPatterns: ["**/*"],
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,glb,json}"], // Files matching any of these patterns will be included in the precache manifest.
         runtimeCaching: [
           {
             urlPattern: ({ url }) => {
-              return url.pathname.includes("api");
+              console.log("[MAHMAN]");
+              return url.href.includes("api");
             },
-            handler: "CacheFirst" as const,
+            method: "GET",
+            handler: "NetworkFirst", // Prefer making API request. If not possible (e.g. no network connection), fall back to cache.
             options: {
               cacheName: "api-cache",
               cacheableResponse: {
-                statuses: [0, 200],
+                statuses: [0, 200], // 0 = opaque responses, as defined in the Fetch API.
               },
+              networkTimeoutSeconds: 10, // Keep the timeout this high! Otherwise, workbox might be unable to respond with the cached version fast enough.
             },
           },
         ],
