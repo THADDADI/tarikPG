@@ -27,10 +27,13 @@ export default defineConfig({
           },
         ],
       },
+      devOptions: {
+        enabled: true,
+      },
       // add this to cache all the
       // static assets in the public folder
       includeAssets: ["**/*"],
-      registerType: "prompt",
+      registerType: "autoUpdate",
       manifest: {
         theme_color: "#f69435",
         background_color: "#f69435",
