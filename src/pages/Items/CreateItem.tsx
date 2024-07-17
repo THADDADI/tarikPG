@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
-import { useAppDispatch } from "../../store";
 import { addItem } from "../../store/features/itemSlice";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store/hooks";
 
 const CreateItemsPage = () => {
   const [formData, setFormData] = useState({ id: "", title: "", price: "" });

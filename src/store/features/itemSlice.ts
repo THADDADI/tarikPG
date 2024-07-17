@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IItem } from "../../../api/models/Item";
-import { openDB } from "idb";
+// import { openDB } from "idb";
 import { RootState } from "../index";
 
 type InitState = {
@@ -17,11 +17,11 @@ const initialState: InitState = {
 };
 
 // Open IndexedDB
-const dbPromise = openDB("items-db", 1, {
-  upgrade(db) {
-    db.createObjectStore("items", { keyPath: "id", autoIncrement: true });
-  },
-});
+// const dbPromise = openDB("items-db", 1, {
+//   upgrade(db) {
+//     db.createObjectStore("items", { keyPath: "id", autoIncrement: true });
+//   },
+// });
 
 const fetchItemByID = createAsyncThunk<IItem[], string>(
   "items/fetchItemById",

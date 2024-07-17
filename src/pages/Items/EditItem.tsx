@@ -7,8 +7,8 @@ import {
   selectItems,
   updateItem,
 } from "../../store/features/itemSlice";
-import { useAppDispatch, useAppSelector } from "../../store";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const EditItemsPage = () => {
   const dispatch = useAppDispatch();

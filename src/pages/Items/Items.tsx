@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import { deleteItem, fetchItems } from "../../store/features/itemSlice";
-import { useAppDispatch, useAppSelector } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const Items = (): ReactElement => {
   const dispatch = useAppDispatch();

@@ -14,6 +14,7 @@ export default defineConfig({
       // add this to cache all the
       // static assets in the public folder
       includeAssets: ["**/*"],
+      registerType: "prompt",
       manifest: {
         theme_color: "#f69435",
         background_color: "#f69435",
@@ -23,6 +24,7 @@ export default defineConfig({
         short_name: "vite test",
         description: "testing vite pwa",
         name: "vite test",
+        orientation: "portrait",
         icons: [
           {
             src: "maskable_icon.png",

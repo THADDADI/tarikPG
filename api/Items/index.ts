@@ -18,13 +18,13 @@ import {
 } from "@azure/functions";
 import { app } from "@azure/functions";
 import { IItem } from "../models/Item";
-import { BlobServiceClient } from "@azure/storage-blob";
+// import { BlobServiceClient } from "@azure/storage-blob";
 
 const databaseId = process.env.COSMOS_DB_ID || "";
 const containerId = process.env.COSMOS_CONTAINER_ID || "";
-const accountName = process.env.ACCOUNT_NAME;
-const sasToken = process.env.SAS_TOKEN;
-const containerName = process.env.CONTAINER_NAME;
+// const accountName = process.env.ACCOUNT_NAME;
+// const sasToken = process.env.SAS_TOKEN;
+// const containerName = process.env.CONTAINER_NAME;
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 // Cosmos config
@@ -35,10 +35,10 @@ const client = new CosmosClient({
 });
 
 // Establishes a connection with Azure Blob Storage
-const blobServiceClient = new BlobServiceClient(
-  `https://${accountName}.blob.core.windows.net/?${sasToken}`
-);
-const containerClient = blobServiceClient.getContainerClient(containerName);
+// const blobServiceClient = new BlobServiceClient(
+//   `https://${accountName}.blob.core.windows.net/?${sasToken}`
+// );
+// const containerClient = blobServiceClient.getContainerClient(containerName);
 
 createDatabase(databaseId, client)
   .then(() => createContainer(databaseId, containerId, "/id", client))
@@ -51,22 +51,22 @@ createDatabase(databaseId, client)
     console.log(`Completed with error ${JSON.stringify(error)}`);
   });
 
-const storeMetadata = async (id, name, caption, fileType, imageUrl) => {
-  const container = client.database("tutorial").container("metadata");
-  await container.item(id, id).replace({ name, caption, fileType, imageUrl });
-};
+// const storeMetadata = async (id, name, caption, fileType, imageUrl) => {
+//   const container = client.database("tutorial").container("metadata");
+//   await container.item(id, id).replace({ name, caption, fileType, imageUrl });
+// };
 
-const extractMetadata = (
-  headers
-): { fileName: string; caption: string; fileType: string } => {
-  const contentType = headers["content-type"];
-  const fileType: string = contentType.split("/")[1];
-  const contentDisposition = headers["content-disposition"] || "";
-  const caption: string = headers["x-image-caption"] || "No caption provided";
-  const matches = /filename="([^"]+)"/i.exec(contentDisposition);
-  const fileName = matches?.[1] || `image-${Date.now()}.${fileType}`;
-  return { fileName, caption, fileType };
-};
+// const extractMetadata = (
+//   headers
+// ): { fileName: string; caption: string; fileType: string } => {
+//   const contentType = headers["content-type"];
+//   const fileType: string = contentType.split("/")[1];
+//   const contentDisposition = headers["content-disposition"] || "";
+//   const caption: string = headers["x-image-caption"] || "No caption provided";
+//   const matches = /filename="([^"]+)"/i.exec(contentDisposition);
+//   const fileName = matches?.[1] || `image-${Date.now()}.${fileType}`;
+//   return { fileName, caption, fileType };
+// };
 
 export const itemsFunctions = async (
   req: HttpRequest,
@@ -183,7 +183,17 @@ export const itemsFunctions = async (
         body: `Error deleting item from the database: ${error.message}`,
       };
     }
-  } else if (req.url === "/api/upload" && req.method === "POST") {
+  } else {
+    context.error("Method not allowed");
+
+    return {
+      status: 405,
+      body: "Method Not Allowed",
+    };
+  }
+
+  /*
+  else if (req.url === "/api/upload" && req.method === "POST") {
     try {
       // Extract metadata from headers
       const { fileName, caption, fileType } = await extractMetadata(
@@ -211,14 +221,8 @@ export const itemsFunctions = async (
         body: "Internal Server Error",
       };
     }
-  } else {
-    context.error("Method not allowed");
-
-    return {
-      status: 405,
-      body: "Method Not Allowed",
-    };
   }
+  */
 };
 
 app.http("Items", {
