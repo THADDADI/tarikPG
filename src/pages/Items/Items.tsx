@@ -1,45 +1,19 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
-
-interface Item {
-  id: string;
-  title: string;
-  price: string;
-}
+import { deleteItem, fetchItems } from "../../store/features/itemSlice";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 const Items = (): ReactElement => {
-  const [items, setItems] = useState<Item[]>([]);
-
+  const dispatch = useAppDispatch();
+  const items = useAppSelector((state) => state.items.items);
   useEffect(() => {
-    fetch("/api/Items")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setItems(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+    dispatch(fetchItems());
+  }, [dispatch]);
 
   const handleDelete = async (itemId: string) => {
-    try {
-      const response = await fetch(`/api/Items/${itemId}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete item");
-      }
-      setItems(items.filter((item) => item.id !== itemId));
-    } catch (error) {
-      console.error("Error deleting item:", error);
-    }
+    dispatch(deleteItem(itemId));
   };
 
   return (
@@ -81,7 +55,7 @@ const Items = (): ReactElement => {
             </div>
             <div className="mt-4">
               <Link
-                to="/items/create"
+                to={`/items/create`}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
                 Create New Item

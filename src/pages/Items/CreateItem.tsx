@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
+import { useAppDispatch } from "../../store";
+import { addItem } from "../../store/features/itemSlice";
+import { useNavigate } from "react-router-dom";
 
 const CreateItemsPage = () => {
   const [formData, setFormData] = useState({ id: "", title: "", price: "" });
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,22 +17,9 @@ const CreateItemsPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await fetch("/api/Items", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to create item");
-      }
-      // Redirect to ItemsPage after successful creation
+    dispatch(addItem(JSON.stringify(formData))).then(() => {
       navigate("/items");
-    } catch (error) {
-      console.error("Error creating item:", error);
-    }
+    });
   };
 
   return (

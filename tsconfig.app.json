@@ -23,7 +23,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "useUnknownInCatchVariables": false,
-
+    "types": [
+      "vite-plugin-pwa/client"
+    ]
   },
   "include": ["api/**/*.ts","src","src/**/*.ts"]
   
