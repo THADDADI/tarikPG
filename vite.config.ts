@@ -9,15 +9,14 @@ export default defineConfig({
     VitePWA({
       // add this to cache all the imports
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,glb,json}"], // Files matching any of these patterns will be included in the precache manifest.
+        globPatterns: ["**/*"], // Files matching any of these patterns will be included in the precache manifest.
         runtimeCaching: [
           {
             urlPattern: ({ url }) => {
-              console.log("[MAHMAN]");
               return url.href.includes("items");
             },
             method: "GET",
-            handler: "NetworkFirst", // Prefer making API request. If not possible (e.g. no network connection), fall back to cache.
+            handler: "CacheFirst" as const, // Prefer making API request. If not possible (e.g. no network connection), fall back to cache.
             options: {
               cacheName: "api-cache",
               cacheableResponse: {
