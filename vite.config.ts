@@ -14,7 +14,7 @@ export default defineConfig({
           {
             urlPattern: ({ url }) => {
               console.log("[MAHMAN]");
-              return url.href.includes("api");
+              return url.href.includes("items");
             },
             method: "GET",
             handler: "NetworkFirst", // Prefer making API request. If not possible (e.g. no network connection), fall back to cache.
