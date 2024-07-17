@@ -16,7 +16,7 @@ export default defineConfig({
               return url.href.includes("items");
             },
             method: "GET",
-            handler: "CacheFirst" as const, // Prefer making API request. If not possible (e.g. no network connection), fall back to cache.
+            handler: "NetworkFirst" as const, // Prefer making API request. If not possible (e.g. no network connection), fall back to cache.
             options: {
               cacheName: "api-cache",
               cacheableResponse: {
