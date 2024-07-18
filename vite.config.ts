@@ -9,7 +9,7 @@ export default defineConfig({
     VitePWA({
       // add this to cache all the imports
       workbox: {
-        globPatterns: ["**/*"], // Files matching any of these patterns will be included in the precache manifest.
+        globPatterns: ["**/*.{js,jsx,css,html,png,svg,woff2,json}"],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => {
