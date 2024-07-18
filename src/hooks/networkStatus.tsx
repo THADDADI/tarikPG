@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 
 const useNetworkStatus = () => {
-  const [isOnline, setOnline] = useState<boolean>(true);
+  const [isOnline, setOnline] = useState<boolean | undefined>(undefined);
 
   const updateNetworkStatus = () => {
     setOnline(navigator.onLine);
-    console.log(navigator.onLine);
   };
 
   //   sometimes, the load event does not trigger on some browsers, that is why manually calling updateNetworkStatus on initial mount
