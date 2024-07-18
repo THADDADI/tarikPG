@@ -13,16 +13,16 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: ({ url }) => {
-              return url.href.includes("items");
+              return url.href.includes("/api/Items");
             },
             method: "GET",
-            handler: "NetworkFirst" as const, // Prefer making API request. If not possible (e.g. no network connection), fall back to cache.
+            handler: "CacheFirst" as const, // Prefer making API request. If not possible (e.g. no network connection), fall back to cache.
             options: {
               cacheName: "api-cache",
               cacheableResponse: {
                 statuses: [0, 200], // 0 = opaque responses, as defined in the Fetch API.
               },
-              networkTimeoutSeconds: 10, // Keep the timeout this high! Otherwise, workbox might be unable to respond with the cached version fast enough.
+              // networkTimeoutSeconds: 10, // Keep the timeout this high! Otherwise, workbox might be unable to respond with the cached version fast enough.
             },
           },
         ],
