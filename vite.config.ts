@@ -9,7 +9,7 @@ export default defineConfig({
     VitePWA({
       // add this to cache all the imports
       workbox: {
-        globPatterns: ["**/*.{js,jsx,css,html,png,svg,woff2,json}"],
+        globPatterns: ["**/*.{js,jsx,css,html,png,jpeg,jpg,svg,woff2,json}"],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => {
