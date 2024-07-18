@@ -67,7 +67,7 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-9637eeee'], (function (workbox) { 'use strict';
+define(['./workbox-a9fe0588'], (function (workbox) { 'use strict';
 
   self.addEventListener('message', event => {
     if (event.data && event.data.type === 'SKIP_WAITING') {
@@ -93,17 +93,20 @@ define(['./workbox-9637eeee'], (function (workbox) { 'use strict';
     "url": "512.png",
     "revision": "f286c1dec1df9ed9b9018d2b37a74783"
   }, {
-    "url": "assets/index-BVbDwuG9.js",
+    "url": "assets/index-4eUVEHjm.css",
     "revision": null
   }, {
-    "url": "assets/index-eRKVXiNI.css",
+    "url": "assets/index-MLGc24QL.js",
+    "revision": null
+  }, {
+    "url": "assets/no-internet-DXJsBtTE.jpg",
     "revision": null
   }, {
     "url": "assets/workbox-window.prod.es5-D5gOYdM7.js",
     "revision": null
   }, {
     "url": "index.html",
-    "revision": "d73d603b65f22d5b104f59a6c08c2882"
+    "revision": "d7d3e200049c2cb30bf12116277bc4eb"
   }, {
     "url": "manifest.webmanifest",
     "revision": "ade0867938ab47d6978492e0d4886fab"
@@ -137,5 +140,15 @@ define(['./workbox-9637eeee'], (function (workbox) { 'use strict';
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html")));
+  workbox.registerRoute(({
+    url
+  }) => {
+    return url.href.includes("/api/Items");
+  }, new workbox.CacheFirst({
+    "cacheName": "api-cache",
+    plugins: [new workbox.CacheableResponsePlugin({
+      statuses: [0, 200]
+    })]
+  }), 'GET');
 
 }));

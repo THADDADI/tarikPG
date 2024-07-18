@@ -33,7 +33,7 @@ export default defineConfig({
       // add this to cache all the
       // static assets in the public folder
       includeAssets: ["**/*"],
-      registerType: "autoUpdate",
+      registerType: "prompt",
       manifest: {
         theme_color: "#f69435",
         background_color: "#f69435",

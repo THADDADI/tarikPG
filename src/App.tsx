@@ -1,15 +1,56 @@
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import Breadcrumb from "./components/breadcrumb/Breadcrumb";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
+import useNetworkStatus from "./hooks/networkStatus";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import NoInternet from "./assets/no-internet.jpg";
 
-function App() {
+const App = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const [items, setItems] = useState([]);
 
+  const { isOnline } = useNetworkStatus();
+
+  const getBannerNetworkStatus = (): ReactNode => {
+    return (
+      <>
+        <ToastContainer />
+      </>
+    );
+  };
+
   useEffect(() => {
+    if (isOnline) {
+      toast("You're online", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+        type: "success",
+        transition: Bounce,
+      });
+    } else {
+      toast("You're disconnected", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+        type: "error",
+        transition: Bounce,
+      });
+    }
     // fetchData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOnline]);
 
   // const fetchData = async () => {
   //   try {
@@ -35,6 +76,8 @@ function App() {
         </div>
 
         <div className="w-3/4 ml-4">
+          {getBannerNetworkStatus()}
+          {!isOnline && <img src={NoInternet} alt="no internet" />}
           <div className="bg-white p-4">
             <Breadcrumb paths={[{ name: "Overview" }]} />
 
@@ -44,6 +87,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

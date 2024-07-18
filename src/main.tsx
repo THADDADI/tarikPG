@@ -8,7 +8,7 @@ import EditItemsPage from "./pages/Items/EditItem.js";
 import { Provider } from "react-redux";
 import store from "./store/index.js";
 import { registerSW } from "virtual:pwa-register";
-
+import "react-toastify/dist/ReactToastify.css";
 // add this to prompt for a refresh
 const updateSW = registerSW({
   onNeedRefresh() {
